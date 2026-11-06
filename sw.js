@@ -1,10 +1,12 @@
 /* Service worker : l'application fonctionne sans internet après la première ouverture.
  * Pour publier une mise à jour, changer VERSION : le téléphone télécharge la nouvelle version. */
-const VERSION = 'gs-v1.0.0';
+const VERSION = 'gs-v1.1.0';
 const APP_FILES = [
   './',
   './index.html',
-  './app.js',
+  './js/i18n.js',
+  './js/core.js',
+  './js/ui.js',
   './manifest.webmanifest',
   './icons/apple-touch-icon.png',
   './icons/icon-192.png',

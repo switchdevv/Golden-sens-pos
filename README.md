@@ -1,40 +1,57 @@
 # Golden Sense
 
-Caisse et gestion de stock pour la parfumerie Golden Sense.
-Application web installable (iPhone, Android, tablette), qui fonctionne sans internet.
+Caisse, stock et crédit clients pour la parfumerie Golden Sense.
+Application web installable (iPhone, Android, PC), qui fonctionne sans internet.
 
-## Installer sur iPhone
+## Installer
 
-1. Ouvrir le lien de l'application dans **Safari**.
-2. Toucher **Partager** puis **Sur l'écran d'accueil**.
-3. Ouvrir Golden Sense depuis l'icône : l'application fonctionne ensuite hors ligne.
+- **iPhone** : ouvrir le lien dans **Safari**, toucher **Partager** puis **Sur l'écran d'accueil**, et ouvrir ensuite l'application depuis l'icône.
+- **PC** : ouvrir le lien dans **Chrome** ou **Edge**, puis cliquer sur l'icône d'installation dans la barre d'adresse.
 
-## Fonctions
+## Fonctions (version 1.1)
 
-- **Caisse** : recherche (nom, marque, contenance, sans tenir compte des accents), filtres genre et type,
-  panier, remise en % ou en montant, validation avec total et bénéfice. « Annuler » juste après une vente.
-- **Stock** : ajout, modification, suppression ; alerte automatique sous 3 unités ; valeur du stock.
-- **Rapports** : chiffre d'affaires et bénéfice net du jour, ventes, articles vendus, top 3
-  (aujourd'hui / depuis le début), historique par jour avec le détail et l'annulation d'une vente.
-- **Langues** : arabe (interface de droite à gauche), français, anglais. **Apparence** : auto, claire, sombre.
-- **Sauvegarde** : export d'un fichier `.json` (Fichiers, iCloud, WhatsApp…) et restauration.
+**Caisse**
+- Vente au flacon ou en décants (tailles et prix définis pour chaque parfum, ou quantité libre au ml/g).
+  Le flacon suivant est ouvert automatiquement quand le flacon ouvert ne suffit plus.
+- Vrac (huiles) vendu au ml ou au gramme.
+- Prix modifiable pour une ligne, remise en % ou en montant.
+- Paiement : espèces (montant reçu et monnaie à rendre), crédit (versement immédiat facultatif, reste sur le compte du client),
+  autre (CCP, BaridiMob).
+- « Annuler » juste après une vente ; retour partiel depuis l'historique (remboursé en espèces ou déduit de la dette).
+
+**Stock**
+- Flacons fermés, millilitres déjà ouverts, vrac ; alerte stock bas.
+- Entrée de stock avec fournisseur ; le prix d'achat devient le coût moyen.
+- Fiche par parfum avec l'historique des mouvements (entrées, ventes, retours, flacons ouverts, corrections).
+- Coût des flacons vides (Réglages) ajouté au coût de chaque décant.
+
+**Clients**
+- Dette existante à la création (ancien cahier), achats à crédit, versements, historique ; total des crédits en cours.
+
+**Rapports**
+- Chiffre d'affaires et bénéfice du jour (après retours), espèces encaissées, crédit accordé et versements reçus,
+  top 3 (aujourd'hui / depuis le début), historique par jour.
+
+**Général** : arabe (de droite à gauche), français, anglais ; thème clair ou sombre ; sauvegarde et restauration.
 
 ## Données
 
-Tout reste sur l'appareil (IndexedDB) : rien n'est envoyé sur internet.
-Exporter une sauvegarde chaque semaine ; un rappel s'affiche dans Rapports au-delà de 7 jours.
-Les montants sont enregistrés en centimes : aucune erreur d'arrondi.
+Tout reste sur l'appareil (IndexedDB). Les données de la version 1.0 sont converties automatiquement à la mise à jour,
+et les anciennes sauvegardes restent lisibles. Exporter une sauvegarde chaque semaine (rappel dans Rapports).
+Montants enregistrés en centimes ; coûts des décants arrondis au dinar.
 
 ## Fichiers
 
 | Fichier | Rôle |
 |---|---|
 | `index.html` | Structure et styles |
-| `app.js` | Données, calculs, écrans, langues |
+| `js/i18n.js` | Textes en trois langues |
+| `js/core.js` | Calculs, règles de stock, base de données, sauvegarde |
+| `js/ui.js` | Écrans, fenêtres, actions |
 | `sw.js` | Fonctionnement hors ligne et mises à jour |
 | `manifest.webmanifest`, `icons/` | Installation sur l'écran d'accueil |
 
 ## Publier une mise à jour
 
-Modifier les fichiers, puis changer `VERSION` dans `sw.js` (par exemple `gs-v1.0.1`).
-À l'ouverture suivante, l'application propose « Actualiser ».
+Modifier les fichiers, changer `VERSION` dans `sw.js` et `APP_VERSION` dans `js/core.js`,
+puis pousser sur `main` et `gh-pages`. À l'ouverture suivante, l'application propose « Actualiser ».
